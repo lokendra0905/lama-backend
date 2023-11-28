@@ -14,6 +14,7 @@ const UploadSchema = mongoose.Schema(
   },
   {
     versionKey: false,
+    timestamps: true,
   }
 );
 
