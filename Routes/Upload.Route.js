@@ -5,7 +5,7 @@ const { UploadModal } = require("../Model/Upload.Modal");
 UploadRouter.get("/all", async (req, res) => {
   try {
     const uploads = await UploadModal.find({});
-    
+
     res.status(200).send(uploads);
   } catch (error) {
     res.status(400).send({ err: error.message });
@@ -26,7 +26,7 @@ UploadRouter.post("/", async (req, res) => {
   try {
     const upload = new UploadModal(req.body);
     await upload.save();
-    res.status(200).send({ msg: "Uploaded Successfully" });
+    res.status(200).send(upload);
   } catch (error) {
     res.status(400).send({ err: error.message });
   }
@@ -35,8 +35,13 @@ UploadRouter.post("/", async (req, res) => {
 UploadRouter.patch("/:uploadId", async (req, res) => {
   const { uploadId } = req.params;
   try {
-    await UploadModal.findByIdAndUpdate(uploadId, req.body);
-    res.status(200).send({ msg: `Updated Successfully` });
+    const updatedUplaod = await UploadModal.findOneAndUpdate({ _id: uploadId }, req.body, {
+      new: true,
+    });
+    if (!updatedUplaod) {
+      return res.status(404).send(updatedUplaod);
+    }
+    res.status(200).send(updatedUplaod);
   } catch (error) {
     res.status(400).send({ err: error.message });
   }

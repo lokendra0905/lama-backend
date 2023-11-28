@@ -41,7 +41,7 @@ ProjectRouter.post("/", async (req, res) => {
   try {
     const project = new ProjectModal(req.body);
     await project.save();
-    res.status(200).send({ msg: "New Project Added Successfully" });
+    res.status(200).send(project);
   } catch (error) {
     res.status(400).send({ err: error.message });
   }
@@ -50,8 +50,15 @@ ProjectRouter.post("/", async (req, res) => {
 ProjectRouter.patch("/:projectId", async (req, res) => {
   const { projectId } = req.params;
   try {
-    await ProjectModal.findByIdAndUpdate(projectId, req.body);
-    res.status(200).send({ msg: `The Project Updated Successfully` });
+    const updatedProject = await ProjectModal.findOneAndUpdate({ _id: projectId }, req.body, {
+      new: true,
+    });
+
+    if (!updatedProject) {
+      return res.status(404).send(updatedProject);
+    }
+
+    res.status(200).send({ msg: "The Project Updated Successfully", project: updatedProject });
   } catch (error) {
     res.status(400).send({ err: error.message });
   }
