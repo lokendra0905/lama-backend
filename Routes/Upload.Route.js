@@ -38,10 +38,10 @@ UploadRouter.post("/", async (req, res) => {
   }
 });
 
-UploadRouter.patch("/:uploadId", async (req, res) => {
-  const { uploadId } = req.params;
+UploadRouter.patch("/", async (req, res) => {
+  const { id } = req.query;
   try {
-    const updatedUplaod = await UploadModal.findOneAndUpdate({ _id: uploadId }, req.body, {
+    const updatedUplaod = await UploadModal.findOneAndUpdate({ _id: id }, req.body, {
       new: true,
     });
     if (!updatedUplaod) {
@@ -53,8 +53,8 @@ UploadRouter.patch("/:uploadId", async (req, res) => {
   }
 });
 
-UploadRouter.delete("/:uploadId", async (req, res) => {
-  const { uploadId } = req.params;
+UploadRouter.delete("/", async (req, res) => {
+  const { id } = req.query;
   try {
     await UploadModal.findByIdAndDelete(uploadId);
     res.status(200).send({ msg: `deleted Successfully` });
