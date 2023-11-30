@@ -56,7 +56,7 @@ UploadRouter.patch("/", async (req, res) => {
 UploadRouter.delete("/", async (req, res) => {
   const { id } = req.query;
   try {
-    await UploadModal.findByIdAndDelete(uploadId);
+    await UploadModal.findByIdAndDelete(id);
     res.status(200).send({ msg: `deleted Successfully` });
   } catch (error) {
     res.status(400).send({ err: error.message });
