@@ -3,7 +3,7 @@ const UploadSchema = mongoose.Schema(
   {
     name: { type: String, required: true },
     desc: { type: String, required: true },
-    status: { type: String, default: "done" },
+    status: { type: String, default: "Done" },
     platform: { type: String, required: true },
     projectId: {
       type: mongoose.Schema.Types.ObjectId,
