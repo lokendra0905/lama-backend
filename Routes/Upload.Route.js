@@ -3,8 +3,9 @@ const UploadRouter = express.Router();
 const { UploadModal } = require("../Model/Upload.Modal");
 
 UploadRouter.get("/all", async (req, res) => {
+  const { projectId } = req.params;
   try {
-    const uploads = await UploadModal.find({});
+    const uploads = await UploadModal.find({ projectId });
 
     res.status(200).send(uploads);
   } catch (error) {
