@@ -45,7 +45,7 @@ UploadRouter.patch("/", async (req, res) => {
       new: true,
     });
     if (!updatedUplaod) {
-      return res.status(404).send(updatedUplaod);
+      return res.status(200).send(updatedUplaod);
     }
     res.status(200).send(updatedUplaod);
   } catch (error) {
