@@ -39,11 +39,12 @@ UploadRouter.post("/", async (req, res) => {
 });
 
 UploadRouter.patch("/", async (req, res) => {
-  const { id } = req.query;
+  const { id } = req.body;
   try {
     const updatedUplaod = await UploadModal.findOneAndUpdate({ _id: id }, req.body, {
       new: true,
     });
+    console.log(updatedUplaod);
     if (!updatedUplaod) {
       return res.status(200).send(updatedUplaod);
     }
