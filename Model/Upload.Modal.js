@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const UploadSchema = mongoose.Schema(
   {
     name: { type: String, required: true },
-    link: { type: String, required: true },
+    desc: { type: String, required: true },
     status: { type: String, default: "done" },
     platform: { type: String, required: true },
     projectId: {
