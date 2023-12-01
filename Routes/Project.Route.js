@@ -47,10 +47,10 @@ ProjectRouter.post("/", async (req, res) => {
   }
 });
 
-ProjectRouter.patch("/:projectId", async (req, res) => {
-  const { projectId } = req.params;
+ProjectRouter.patch("/", async (req, res) => {
+  const { id } = req.body;
   try {
-    const updatedProject = await ProjectModal.findOneAndUpdate({ _id: projectId }, req.body, {
+    const updatedProject = await ProjectModal.findOneAndUpdate({ _id: id }, req.body, {
       new: true,
     });
 
@@ -64,11 +64,11 @@ ProjectRouter.patch("/:projectId", async (req, res) => {
   }
 });
 
-ProjectRouter.delete("/:projectId", async (req, res) => {
-  const { projectId } = req.params;
+ProjectRouter.delete("/", async (req, res) => {
+  const { id } = req.query;
   try {
-    await ProjectModal.findByIdAndDelete(projectId);
-    await UploadModal.deleteMany({ projectId });
+    await ProjectModal.findByIdAndDelete(id);
+    await UploadModal.deleteMany({ projectId: id });
     res.status(200).send({ msg: `The Project deleted Successfully` });
   } catch (error) {
     res.status(400).send({ err: error.message });
