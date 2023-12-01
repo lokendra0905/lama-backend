@@ -58,7 +58,7 @@ ProjectRouter.patch("/", async (req, res) => {
       return res.status(404).send(updatedProject);
     }
 
-    res.status(200).send({ msg: "The Project Updated Successfully", project: updatedProject });
+    res.status(200).send(updatedProject);
   } catch (error) {
     res.status(400).send({ err: error.message });
   }
